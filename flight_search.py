@@ -8,6 +8,7 @@ tequila_header = {
     'apikey': TEQUILA_API_KEY,
 }
 
+
 class FlightSearch:
     # This class is responsible for talking to the Flight Search API.
     def __init__(self):
@@ -23,3 +24,5 @@ class FlightSearch:
         city_data = tequila_data['locations'][0]
         city_code = city_data['code']
         return city_code
+
+
