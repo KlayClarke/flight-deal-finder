@@ -17,13 +17,13 @@ class FlightData:
     # flight prices from London to destination
     def find_flight_info(self, city_code, max_price):
         tequila_params = {
-            'fly_from': 'LON',
+            'fly_from': 'BOS',
             'fly_to': city_code,
             'date_from': tomorrow,
             'date_to': in_six_months,
             'price_from': 0,
             'price_to': max_price,
-            'curr': 'GBP',
+            'curr': 'USD',
             'nights_in_dst_from': 7,
             'nights_in_dst_to': 28,
             'max_stopovers': 0,
