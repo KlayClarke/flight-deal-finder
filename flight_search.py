@@ -13,7 +13,7 @@ class FlightSearch:
     def __init__(self):
         pass
 
-    def city_code(self, city_name):
+    def find_city_code(self, city_name):
         tequila_params = {
             'term': city_name
         }
