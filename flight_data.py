@@ -6,7 +6,7 @@ from flight_search import tequila_header
 TEQUILA_FLIGHT_SEARCH_ENDPOINT = os.environ.get('TEQUILA_FLIGHT_SEARCH_ENDPOINT')
 
 tomorrow = (datetime.date.today() + datetime.timedelta(days=1)).strftime('%d/%m/%Y')
-in_two_months = (datetime.date.today() + datetime.timedelta(days=60)).strftime('%d/%m/%Y')
+in_six_months = (datetime.date.today() + datetime.timedelta(days=180)).strftime('%d/%m/%Y')
 
 
 class FlightData:
@@ -20,7 +20,7 @@ class FlightData:
             'fly_from': 'LON',
             'fly_to': city_code,
             'date_from': tomorrow,
-            'date_to': in_two_months,
+            'date_to': in_six_months,
             'price_from': 0,
             'price_to': max_price,
             'curr': 'GBP',
