@@ -1,11 +1,13 @@
-# This file will need to use the DataManager,FlightSearch, FlightData, NotificationManager classes
-# to achieve the program requirements.
-import requests
+from data_manager import DataManager
+from flight_search import FlightSearch
 
-import flight_search as fs
+fs = FlightSearch()
+dm = DataManager()
 
-tequila_response = requests.get(url=fs.tequila_endpoint, params=fs.tequila_params, headers=fs.tequila_header)
-tequila_response.raise_for_status()
-flight_search_data = tequila_response.json()
-print(flight_search_data)
-
+# # Attempt to read spreadsheet and update the iata code on each row
+for city in dm.read_rows():
+    city_name = city['city']
+    code = (fs.city_code(city_name))
+    lowest_price = city['lowestPrice']
+    row_id = city['id']
+    dm.update_row(row_id=row_id, city_name=city_name, iata_code=code, lowest_price=lowest_price)
