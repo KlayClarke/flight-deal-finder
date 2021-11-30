@@ -24,6 +24,8 @@ class FlightData:
             'price_from': 0,
             'price_to': max_price,
             'curr': 'GBP',
+            'nights_in_dst_from': 7,
+            'nights_in_dst_to': 28,
             'max_stopovers': 0,
             'limit': 1
         }
