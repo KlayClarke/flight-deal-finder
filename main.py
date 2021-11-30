@@ -3,11 +3,9 @@ from flight_search import FlightSearch
 
 fs = FlightSearch()
 dm = DataManager()
+city_data = dm.read_rows()
 
-# # Attempt to read spreadsheet and update the iata code on each row
-for city in dm.read_rows():
-    city_name = city['city']
-    code = (fs.city_code(city_name))
-    lowest_price = city['lowestPrice']
-    row_id = city['id']
-    dm.update_row(row_id=row_id, city_name=city_name, iata_code=code, lowest_price=lowest_price)
+for city in city_data:
+    if city['iataCode'] == '':
+        city_code = fs.find_city_code(city['city'])
+        dm.update_iata_codes(city_code, city['id'])
