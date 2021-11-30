@@ -1,14 +1,12 @@
 import os
 import requests
 
+TEQUILA_ENDPOINT = os.environ.get('TEQUILA_ENDPOINT')
 TEQUILA_API_KEY = os.environ.get('TEQUILA_API_KEY')
 
 tequila_header = {
     'apikey': TEQUILA_API_KEY,
 }
-
-tequila_endpoint = 'https://tequila-api.kiwi.com/locations/query'
-
 
 class FlightSearch:
     # This class is responsible for talking to the Flight Search API.
@@ -19,7 +17,7 @@ class FlightSearch:
         tequila_params = {
             'term': city_name
         }
-        tequila_response = requests.get(url=tequila_endpoint, params=tequila_params, headers=tequila_header)
+        tequila_response = requests.get(url=TEQUILA_ENDPOINT, params=tequila_params, headers=tequila_header)
         tequila_response.raise_for_status()
         tequila_data = tequila_response.json()
         city_data = tequila_data['locations'][0]

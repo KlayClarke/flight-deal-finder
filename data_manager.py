@@ -1,6 +1,7 @@
 import os
 import requests
 
+SHEETY_ENDPOINT = os.environ.get('SHEETY_ENDPOINT')
 SHEETY_API_KEY = os.environ.get('SHEETY_API_KEY')
 
 sheety_header = {
@@ -10,15 +11,14 @@ sheety_header = {
 class DataManager:
     # This class is responsible for talking to the Google Sheet.
     def __init__(self):
-        pass
+        self.destination_codes = {}
 
     def read_rows(self):
-        sheety_endpoint = 'https://api.sheety.co/7eaf685bcbfb9d696135db8f6a44daad/flightDeals/prices/'
-        sheety_response = requests.get(url=sheety_endpoint)
+        sheety_response = requests.get(url=SHEETY_ENDPOINT)
         sheety_response.raise_for_status()
         sheety_data = sheety_response.json()
-        sheety_cities = sheety_data['prices']
-        return sheety_cities
+        self.destination_codes = sheety_data['prices']
+        return self.destination_codes
 
     def add_row(self, city_name, iata_code, lowest_price):
         sheety_params = {
@@ -28,8 +28,7 @@ class DataManager:
                 'lowestPrice': lowest_price
             }
         }
-        sheety_endpoint = 'https://api.sheety.co/7eaf685bcbfb9d696135db8f6a44daad/flightDeals/prices'
-        sheety_response = requests.request('POST', url=sheety_endpoint, json=sheety_params, headers=sheety_header)
+        sheety_response = requests.request('POST', url=SHEETY_ENDPOINT, json=sheety_params, headers=sheety_header)
         sheety_response.raise_for_status()
         sheety_data = sheety_response.json()
         return sheety_data
@@ -42,14 +41,14 @@ class DataManager:
                 'lowestPrice': lowest_price
             }
         }
-        sheety_endpoint = f'https://api.sheety.co/7eaf685bcbfb9d696135db8f6a44daad/flightDeals/prices/{row_id}'
+        sheety_endpoint = f'{SHEETY_ENDPOINT}{row_id}'
         sheety_response = requests.put(url=sheety_endpoint, json=sheety_params, headers=sheety_header)
         sheety_response.raise_for_status()
         sheety_data = sheety_response.json()
         return sheety_data
 
     def delete_row(self, row_num):
-        sheety_endpoint = f'https://api.sheety.co/7eaf685bcbfb9d696135db8f6a44daad/flightDeals/prices/{row_num}'
+        sheety_endpoint = f'{SHEETY_ENDPOINT}{row_num}'
         sheety_delete = requests.delete(url=sheety_endpoint)
         sheety_delete.raise_for_status()
         sheety_data = sheety_delete.json()
