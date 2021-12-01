@@ -26,7 +26,7 @@ class FlightData:
             'curr': 'USD',
             'nights_in_dst_from': 7,
             'nights_in_dst_to': 28,
-            'max_stopovers': 0,
+            'max_stopovers': 1,
             'limit': 1
         }
         tequila_response = requests.get(url=TEQUILA_FLIGHT_SEARCH_ENDPOINT,
