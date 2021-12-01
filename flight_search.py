@@ -24,5 +24,3 @@ class FlightSearch:
         city_data = tequila_data['locations'][0]
         city_code = city_data['code']
         return city_code
-
-
